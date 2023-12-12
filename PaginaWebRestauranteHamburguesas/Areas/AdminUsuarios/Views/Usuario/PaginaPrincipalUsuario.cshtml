@@ -7,66 +7,121 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Administración de usuarios</title>
+    <title>Administración de Usuarios</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: beige;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        select, input {
+            margin-right: 10px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .acciones {
+            white-space: nowrap; 
+        }
+    </style>
 </head>
 <body>
     <h1>Administración de usuarios</h1>
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="tipoUsuario">Seleccionar Tipo de Usuario:</label>
+                <select name="tipoUsuario" class="btn btn-info form-control">
+                    @foreach (var tipo in Model.ModelViewTipos.Tipos)
+                    {
+                        <option value="@tipo.Id">@tipo.Etiqueta</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label>&nbsp;</label>
+                <button asp-route="crearUsuarios" type="submit" class="btn btn-success form-control">
+                    Crear Usuario
+                </button>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="caracteres">Ingrese el nombre de usuario:</label>
+                <input style="width: 100%;" placeholder="Nombre de usuario..." name="caracteres" class="form-control" id="inputDefault">
+            </div>
+            <div class="col-md-3">
+                <label>&nbsp;</label>
+                <button asp-controller="Usuario" asp-action="BuscarUsuario" type="submit" class="btn btn-success form-control">
+                    Buscar
+                </button>
+            </div>
+            <div class="col-md-3">
+                <label>&nbsp;</label>
+                <button class="btn btn-danger form-control">Cancelar</button>
+            </div>
+        </div>
+    </form>
+
     <div>
-        <form method="post">
-            <select name="tipoUsuario">
-                @foreach (var tipo in Model.ModelViewTipos.Tipos)
-                {
-                    <option value="@tipo.Id">@tipo.Etiqueta</option>
-                }
-            </select>
-            <button asp-route="crearUsuarios" type="submit">
-                Crear Usuario
-            </button>
-        </form>
-    </div>
-    <div>
-        <form method="post">
-            <input placeholder="Ingrese el nombre de usuario..." name="caracteres">
-            <button asp-controller="Usuario" asp-action="BuscarUsuario"  type="submit">
-                Buscar
-            </button>
-            <button>Cancelar</button>
-        </form>
-    </div>
-    <div>
-        <table>
-            <tr>
+        <table class="table table-hover">
+            <tr class="table-danger">
                 <th>Nombre de usuario</th>
                 <th>Estado</th>
                 <th>Tipo</th>
                 <th>Fecha de Creación</th>
                 <th>Fecha de Acceso</th>
                 <th>Hora de Acceso</th>
-                <th>Acciones</th>
+                <th class="acciones">Acciones</th>
             </tr>
             @foreach (var usuario in Model.Usuarios)
             {
-                <tr>
+                <tr class="table-primary">
                     <td>@usuario.Nombre</td>
                     <td>@usuario.Estado</td>
                     <td>@usuario.Tipo</td>
                     <td>@usuario.FechaCreacion</td>
                     <td>@usuario.FechaAcceso</td>
                     <td>@usuario.HoraAcceso</td>
-                    <td>
-                        <a asp-action="ModificarUsuarios" 
-                        asp-route-idUsuario="@usuario.UsuarioId"
-                        asp-route-tipoUsuario="@usuario.TipoId">
-                            Editar
-                        </a>
-                        <a asp-action="EliminarUsuario"
-                        asp-route-idUsuario="@usuario.UsuarioId">
-                            Eliminar
-                        </a>
-                        <a asp-action="ModificarEstadoUsuario"
-                        asp-route-IdUsuario="@usuario.UsuarioId">
-                            Cambiar estado
-                        </a>
+                    <td class="acciones">
+                        <form asp-action="ModificarUsuarios" method="get" style="display:inline;">
+                            <input type="hidden" name="idUsuario" value="@usuario.UsuarioId" />
+                            <input type="hidden" name="tipoUsuario" value="@usuario.TipoId" />
+                            <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                        </form>
+
+                        <form asp-action="EliminarUsuario" method="post" style="display:inline;">
+                            <input type="hidden" name="idUsuario" value="@usuario.UsuarioId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+
+                        <form asp-action="ModificarEstadoUsuario" method="post" style="display:inline;">
+                            <input type="hidden" name="IdUsuario" value="@usuario.UsuarioId" />
+                            <button type="submit" class="btn btn-secondary btn-sm">Cambiar Estado</button>
+                        </form>
                     </td>
                 </tr>
             }

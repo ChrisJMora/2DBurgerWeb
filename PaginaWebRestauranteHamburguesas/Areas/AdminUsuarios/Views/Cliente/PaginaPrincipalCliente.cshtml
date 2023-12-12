@@ -8,23 +8,50 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #FFB993;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+        }
+
+        .acciones {
+            white-space: nowrap;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Administración de Clientes</h1>
 
     <div>
-        <table>
-            <tr>
+        <table class="table table-hover">
+            <tr class="table-success">
                 <th>Nombre y Apellido</th>
                 <th>Fecha de Nacimiento</th>
                 <th>Género</th>
                 <th>Contacto</th>
-                <th></th>
+                <th class="acciones">Visualizar</th>
             </tr>
             @foreach (var cliente in Model.Clientes)
             {
-                <tr>
+                <tr class="table-secondary">
                     <td>@cliente.Nombre @cliente.Apellido</td>
                     <td>@cliente.FechaNacimiento</td>
                     <td>@cliente.Genero</td>
@@ -36,7 +63,7 @@
                     </td>
                     @if (cliente.TieneOrdenes)
                     {
-                        <td>
+                        <td class="acciones">
                             <a asp-route="ordenes"
                                asp-route-idCliente="@cliente.ClienteId">
                                 Ordenes

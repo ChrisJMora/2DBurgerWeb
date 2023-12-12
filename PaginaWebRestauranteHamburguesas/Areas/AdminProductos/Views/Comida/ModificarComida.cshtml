@@ -9,30 +9,90 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+            form div {
+                margin-bottom: 20px;
+            }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        a.button {
+            display: block;
+            width: 50%;
+            max-width: 200px;
+            margin-top: 10px;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Modificar comida</h1>
+    <h1>Modificar Comida</h1>
 
     <form method="post">
 
         <div id="formDatosComida">
+            <label for="txtNombreComida">Nombre*</label>
+            <input type="text" id="txtNombreComida" placeholder="Nombre de la comida"
+                   name="nombreComida" value="@Model.entity.Nombre">
 
-            <div>
-                <input type="text" id="txtNombreComida" placeholder="Nombre de la comida"
-                       name="nombreComida" value="@Model.entity.Nombre">
-                <label for="txtNombreComida">Nombre*</label>
-            </div>
-            <div>
-                <input type="text" id="txtDescripcionComida" placeholder="Descripción de la comida"
-                       name="descripcionComida" value="@Model.entity.Descripcion">
-                <label for="txtDescripcionComida">Descripción*</label>
-            </div>
-            <div>
-                <input type="number" id="txtPrecioComida" placeholder="Precio de la comida"
-                       name="precioComida" step="0.1" value="@Model.entity.Precio">
-                <label for="txtPrecioComida">Precio*</label>
-            </div>
+            <label for="txtDescripcionComida">Descripción*</label>
+            <input type="text" id="txtDescripcionComida" placeholder="Descripción de la comida"
+                   name="descripcionComida" value="@Model.entity.Descripcion">
+
+            <label for="txtPrecioComida">Precio*</label>
+            <input type="number" id="txtPrecioComida" placeholder="Precio de la comida"
+                   name="precioComida" step="0.1" value="@Model.entity.Precio">
+
+            <label for="categoriaComida">Categoría*</label>
             <select name="categoriaComida">
                 @foreach (var categoria in Model.entity.CategoriasComida.Categorias)
                 {
@@ -46,7 +106,6 @@
                     }
                 }
             </select>
-            <label for="formDatosComida">Ingrese los datos de la comida:</label>
         </div>
 
         <button asp-route-idComida="@Model.entity.ComidaId" type="submit">
@@ -55,13 +114,11 @@
 
     </form>
 
-    <div>
-        <a asp-action="PaginaPrincipalComida">Regresar</a>
-    </div>
+    <a asp-action="PaginaPrincipalComida" class="button">Regresar</a>
 
     @if (Model is null)
     {
-        @("Say Hi")
+        @("Hola, bienvenido/a.")
     }
     else
     {

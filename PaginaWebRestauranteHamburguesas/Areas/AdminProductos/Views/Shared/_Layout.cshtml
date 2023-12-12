@@ -3,17 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <title>@ViewData["Title"] - Restaurante de Hamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <header>
         <nav>
-            <ul>
-                <li> <a asp-area="AccesoAdmin" asp-controller="Admin" asp-action="PaginaPrincipal">Inicio</a> </li>
-                <li> <a asp-controller="Comida" asp-action="PaginaPrincipalComida">Comidas</a> </li>
+            <ul class="nav mb-2">
+                <li class="nav-item mr-2"> <a class="btn btn-primary" asp-area="AccesoAdmin" asp-controller="Admin" asp-action="PaginaPrincipal" style="margin-right: 10px;">Inicio</a> </li>
+                <li class="nav-item mr-2"> <a class="btn btn-secondary" asp-controller="Comida" asp-action="PaginaPrincipalComida" style="margin-right: 10px;">Comidas</a> </li>
                 <li> <a asp-controller="Combo" asp-action="PaginaPrincipalCombo">Combos</a> </li>
-                <li> @Sesion.Singleton().UsuarioLogeado </li>
-                <li> <a asp-area="AccesoAdmin" asp-controller="Admin" asp-action="InicioSesion">Cerrar Sesión</a> </li>
+            </ul>
+            <ul class="nav">
+                <li class="nav-item mr-2"> <span class="btn btn-info" style="margin-right: 10px;">@Sesion.Singleton().UsuarioLogeado</span> </li>
+                <li class="nav-item mr-2"> <a class="btn btn-danger" asp-area="AccesoAdmin" asp-controller="Admin" asp-action="InicioSesion">Cerrar Sesión</a> </li>
             </ul>
         </nav>
     </header>
@@ -26,7 +29,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - PaginaWebRestauranteHamburguesas - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - Restaurante de Hamburguesas - <a asp-area="" asp-controller="Home" asp-action="Privacidad">Privacy</a>
         </div>
     </footer>
 

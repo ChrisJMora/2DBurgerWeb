@@ -1,13 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Página Principal";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center">
+    <h1 class="display-1"><b>2D BURGUER</b></h1>
 
-    <a asp-area="AccesoAdmin" asp-controller="Admin" asp-action="InicioSesion">
+    <img src="https://img.freepik.com/foto-gratis/hamburguesa-queso-perfecta-verduras-sobre-mesa-madera-fondo-negro-ai-generativo_123827-23432.jpg"
+         width="500"
+         height="400">
+
+    <h1 class="display-4"><b>BIENVENIDO/A</b></h1>
+
+    <a asp-area="AccesoAdmin" asp-controller="Admin" asp-action="InicioSesion" class="btn btn-primary">
         Inicio de Sesión
     </a>
+    <style>
+        body {
+            background-color: #E8C39E;
+        }
+    </style>
 
 </div>
+

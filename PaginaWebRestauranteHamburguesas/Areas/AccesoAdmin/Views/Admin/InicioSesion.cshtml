@@ -1,13 +1,47 @@
 ﻿@model string
 
-@{ string mensaje = (Model == null) ? "Say Hi" : Model.ToString(); }
+@{ string mensaje = (Model == null) ? "Hola, bienvenido/a." : Model.ToString(); }
 
 <!DOCTYPE html>
 <html style="margin:0; padding:0" lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - 2dBurguer</title>
+    <title>@ViewData["Title"] - 2D BURGUER</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #E8C39E;
+            background-image: url('https://img.freepik.com/foto-gratis/hamburguesa-queso-perfecta-verduras-sobre-mesa-madera-fondo-negro-ai-generativo_123827-23432.jpg');
+        }
+
+        .formulario {
+            max-width: 500px;
+            width: 120%;
+            padding: 20px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .campo-texto {
+            margin-bottom: 20px;
+        }
+
+        .campo-texto input {
+                width: 100%;
+                padding: 10px;
+        }
+
+        p {
+            color: white;
+        }
+
+    </style>
 </head>
 <body>
     <section>
@@ -28,7 +62,6 @@
             </button>
         </form>
     </section>
-
     <p>@(mensaje)</p>
 </body>
 </html>

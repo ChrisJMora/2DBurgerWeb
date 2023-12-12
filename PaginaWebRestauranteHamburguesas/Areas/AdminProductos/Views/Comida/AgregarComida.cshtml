@@ -9,6 +9,71 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-top: 10px;
+            display: block;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a.button {
+            display: block;
+            width: 50%;
+            max-width: 200px;
+            margin: 10px auto;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -17,21 +82,16 @@
     <form method="post">
 
         <div id="formDatosComida">
+            <label for="formDatosComida">Ingrese los datos de la comida:</label>
 
             <div>
-                <input type="text" id="txtNombreComida" placeholder="Nombre de la comida"
-                       name="nombreComida">
-                <label for="txtNombreComida">Nombre*</label>
+                <input type="text" id="txtNombreComida" placeholder="Nombre de la comida" name="nombreComida">
             </div>
             <div>
-                <input type="text" id="txtDescripcionComida" placeholder="Descripción de la comida"
-                       name="descripcionComida">
-                <label for="txtDescripcionComida">Descripción*</label>
+                <input type="text" id="txtDescripcionComida" placeholder="Descripción de la comida" name="descripcionComida">
             </div>
             <div>
-                <input type="number" id="txtPrecioComida" placeholder="Precio de la comida"
-                       name="precioComida" step="0.1">
-                <label for="txtPrecioComida">Precio*</label>
+                <input type="number" id="txtPrecioComida" placeholder="Precio de la comida" name="precioComida" step="0.1">
             </div>
             <select name="categoriaComida">
                 @foreach (var categoria in Model.entity.Categorias)
@@ -39,20 +99,17 @@
                     <option value="@categoria.Id">@categoria.Etiqueta</option>
                 }
             </select>
-            <label for="formDatosComida">Ingrese los datos de la comida:</label>
         </div>
 
         <button type="submit">Agregar</button>
 
     </form>
 
-    <div>
-        <a asp-action="PaginaPrincipalComida">Regresar</a>
-    </div>
+    <a asp-action="PaginaPrincipalComida" class="button">Regresar</a>
 
     @if (Model is null)
     {
-        @("Say Hi")
+        @("Hola, bienvenido/a.")
     }
     else
     {

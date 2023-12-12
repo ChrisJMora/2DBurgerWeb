@@ -9,6 +9,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1, p {
+            border: 1px solid #ddd;
+            width: 400px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: aquamarine;
+        }
+
+        td {
+            background-color: lightgray;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
@@ -38,9 +85,7 @@
         }
     </table>
 
-    <div>
-        <a asp-action="PaginaPrincipalCombo">Regresar</a>
-    </div>
+    <a asp-action="PaginaPrincipalCombo" class="button">Regresar</a>
 
 </body>
 </html>

@@ -9,65 +9,110 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        #formDatosCombo {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+            form div {
+                margin-bottom: 20px;
+            }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Modificar comida</h1>
-
-    <form method="post">
-
-        <div id="formDatosCombo">
-
-            <div>
-                <input type="text" id="txtNombreCombo" placeholder="Nombre del combo"
-                       name="nombreCombo" value="@Model.entity.Nombre">
-                <label for="txtNombreCombo">Nombre*</label>
-            </div>
-            <div>
-                <input type="text" id="txtDescripcionCombo" placeholder="Descripción del combo"
-                       name="descripcionCombo" value="@Model.entity.Descripcion">
-                <label for="txtDescripcionCombo">Descripción*</label>
-            </div>
-            <div>
-                @{
-                    double descuento = @Model.entity.Descuento/100; }
-                <input type="number" id="txtDescuentoCombo" placeholder="Descuento del combo"
-                       name="descuentoCombo" step="0.1" value="@descuento">
-                <label for="txtDescuentoCombo">Descuento*</label>
-            </div>
-            <select name="categoriaCombo">
-                @foreach (var categoria in Model.entity.CategoriasCombo.Categorias)
+    <h1>Modificar Combo</h1>
+    <label for="txtNombreCombo">Ingrese los datos del combo:</label>
+    <form method="post" id="formDatosCombo">
+        <label for="txtNombreCombo">Nombre*</label>
+        <input type="text" id="txtNombreCombo" placeholder="Nombre del combo"
+               name="nombreCombo" value="@Model.entity.Nombre">
+        <label for="txtDescripcionCombo">Descripción*</label>
+        <input type="text" id="txtDescripcionCombo" placeholder="Descripción del combo"
+               name="descripcionCombo" value="@Model.entity.Descripcion">
+        <label for="txtDescuentoCombo">Descuento*</label>
+        @{
+            double descuento = @Model.entity.Descuento / 100;
+        }
+        <input type="number" id="txtDescuentoCombo" placeholder="Descuento del combo"
+               name="descuentoCombo" step="0.1" value="@descuento">
+        <label>Categoria*</label>
+        <select name="categoriaCombo">
+            @foreach (var categoria in Model.entity.CategoriasCombo.Categorias)
+            {
+                @if (Model.entity.CategoriaComboId == categoria.Id)
                 {
-                    @if (Model.entity.CategoriaComboId == categoria.Id)
-                    {
-                        <option value="@categoria.Id" selected>@categoria.Etiqueta</option>
-                    }
-                    else
-                    {
-                        <option value="@categoria.Id">@categoria.Etiqueta</option>
-                    }
+                    <option value="@categoria.Id" selected>@categoria.Etiqueta</option>
                 }
-            </select>
+                else
+                {
+                    <option value="@categoria.Id">@categoria.Etiqueta</option>
+                }
+            }
+        </select>
 
-
-            <label for="formDatosCombo">Ingrese los datos del combo:</label>
-        </div>
-
-        <button type="submit" 
-            asp-action="ModificarCombo"
-            asp-route-idCombo="@Model.entity.ComboId">
+        <button type="submit"
+                asp-action="ModificarCombo"
+                asp-route-idCombo="@Model.entity.ComboId">
             Modificar
         </button>
 
     </form>
 
-    <div>
-        <a asp-action="PaginaPrincipalCombo">Regresar</a>
-    </div>
+    <a asp-action="PaginaPrincipalCombo" class="button">Regresar</a>
 
     @if (Model is null)
     {
-        @("Say Hi")
+        @("Hola, bienvenido/a.")
     }
     else
     {

@@ -8,6 +8,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #5DBB63;
+        }
+
+        td {
+            background-color: #b5b5b5;
+        }
+
+        /* Estilos adicionales para el diseño de las secciones */
+        #encabezadoFactura,
+        #detalleCombos,
+        #detalleComidas {
+            margin-bottom: 20px;
+        }
+
+            #detalleCombos table,
+            #detalleComidas table {
+                margin-top: 10px;
+            }
+
+    </style>
 </head>
 <body>
 
@@ -97,7 +140,6 @@
     <hr />
 
     <p>Total: @Model.PrecioTotal.ToString("F1") $</p>
-
 
 </body>
 </html>

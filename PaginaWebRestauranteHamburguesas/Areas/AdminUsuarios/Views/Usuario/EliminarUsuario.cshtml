@@ -9,45 +9,118 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #labelNombreUsuario {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+            form div {
+                margin-bottom: 20px;
+            }
+
+        label {
+            display: block;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button, a {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        a {
+            background-color: #6C757D;
+        }
+
+        #mensajeFinal {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Eliminar cuenta</h1>
 
     <div id="labelNombreUsuario">
-        <p>@Model.entity.Nombre</p>
         <label for="labelNombeUsuario">Usuario:</label>
+        <p>@Model.entity.Nombre</p>
     </div>
 
     <form method="post">
         <div id="formCredencialesAdmin">
+            <label for="formCredencialesAdmin">Ingrese las credenciales de una cuenta válida:</label>
             <div>
                 <input type="text" id="txtNombreUsuarioAdmin" placeholder="Nombre de usuario"
                        name="nombreUsuarioAdmin">
-                <label for="txtNombreUsuarioAdmin">Usuario*</label>
             </div>
             <div>
                 <input type="password" id="txtPasswordAdmin" placeholder="Contraseña"
                        name="passwordAdmin">
-                <label for="txtPasswordAdmin">Contraseña*</label>
             </div>
-            <label for="formCredencialesAdmin">Ingrese las credenciales de una cuenta de administrador válida:</label>
         </div>
         <button type="submit">Eliminar cuenta</button>
     </form>
 
-    <div>
-        <a asp-route="usuarios">Regresar</a>
-    </div>
+    <a asp-route="usuarios">Regresar</a>
 
-    @if (Model.mensaje is null)
-    {
-        @("Say Hi")
-    }
-    else
-    {
-        @(Model.mensaje)
-    }
+    <div id="mensajeFinal">
+        @if (Model.mensaje is null)
+        {
+            @("Hola, bienvenido/a.")
+        }
+        else
+        {
+            @(Model.mensaje)
+        }
+    </div>
 
 </body>
 </html>

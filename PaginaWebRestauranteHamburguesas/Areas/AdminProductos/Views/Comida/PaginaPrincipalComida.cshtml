@@ -8,14 +8,74 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        a.button {
+            display: block;
+            width: 150px;
+            margin: 10px auto;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+            background-color: aquamarine;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        a.button-details {
+            background-color: #28a745;
+        }
+
+        a.button-edit {
+            background-color: #ffc107;
+        }
+
+        a.button-disable {
+            background-color: #dc3545;
+        }
+
+        a.button-delete {
+            background-color: #6C757D;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Administración de Comidas</h1>
 
-    <div>
-        <a asp-action="AgregarComida">Agregar comida</a>
-    </div>
+    <a asp-action="AgregarComida" class="button">Agregar comida</a>
 
     <div>
         <table>
@@ -24,7 +84,7 @@
                 <th>Categoria</th>
                 <th>Estado</th>
                 <th>Precio</th>
-                <th></th>
+                <th>Acciones</th>
             </tr>
             @foreach (var comida in Model.Comidas)
             {
@@ -35,44 +95,45 @@
                     <td>@comida.Precio $</td>
                     <td>
                         <a asp-action="DetallesComida"
-                        asp-route-idComida="@comida.ComidaId">
+                                asp-route-idComida="@comida.ComidaId"
+                                class="button button-details">
                             Detalles
                         </a>
                         <a asp-action="ModificarComida"
-                        asp-route-idComida="@comida.ComidaId">
+                                asp-route-idComida="@comida.ComidaId"
+                                class="button button-edit">
                             Modificar
                         </a>
 
                         @if (comida.EstadoId == 1)
                         {
                             <a asp-action="DeshabilitarComida"
-                            asp-route-idComida="@comida.ComidaId">
+                                    asp-route-idComida="@comida.ComidaId"
+                                    class="button button-disable">
                                 Deshabilitar
                             </a>
                         }
                         else
                         {
                             <a asp-action="HabilitarComida"
-                               asp-route-idComida="@comida.ComidaId">
+                                    asp-route-idComida="@comida.ComidaId"
+                                    class="button button-disable">
                                 Habilitar
                             </a>
                         }
 
-
                         @if (comida.ComidaEliminable)
                         {
                             <a asp-action="EliminarComida"
-                               asp-route-idComida="@comida.ComidaId">
+                                    asp-route-idComida="@comida.ComidaId"
+                                    class="button button-delete">
                                 Eliminar
                             </a>
                         }
-
                     </td>
                 </tr>
             }
-
         </table>
     </div>
-
 </body>
 </html>

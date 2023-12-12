@@ -9,54 +9,100 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            border: 3px solid #ccc;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+            form div {
+                margin-bottom: 20px;
+            }
+
+        label {
+            margin-top: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a.button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            width: 100%;
+            max-width: 200px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Agregar combo</h1>
 
-    <form method="post">
+    <form method="post" id="formDatosCombo">
+        <label for="txtNombreCombo">Ingrese los datos del combo:</label>
+        <input type="text" id="txtNombreCombo" placeholder="Nombre del combo" name="nombreCombo">
+        <label for="txtDescripcionCombo">Descripción*</label>
+        <input type="text" id="txtDescripcionCombo" placeholder="Descripción del combo" name="descripcionCombo">
+        <label for="txtDescuentoCombo">Descuento*</label>
+        <input type="number" id="txtDescuentoCombo" placeholder="Descuento del combo" name="descuentoCombo" step="0.1">
+        <label for="categoriaCombo">Categoría*</label>
+        <select name="categoriaCombo">
+            @foreach (var categoria in Model.entity.Categorias)
+            {
+                <option value="@categoria.Id">@categoria.Etiqueta</option>
+            }
+        </select>
 
-        <div id="formDatosCombo">
-
-            <div>
-                <input type="text" id="txtNombreCombo" placeholder="Nombre del combo"
-                       name="nombreCombo">
-                <label for="txtNombreCombo">Nombre*</label>
-            </div>
-            <div>
-                <input type="text" id="txtDescripcionCombo" placeholder="Descripción del combo"
-                       name="descripcionCombo">
-                <label for="txtDescripcionCombo">Descripción*</label>
-            </div>
-            <div>
-                <input type="number" id="txtDescuentoCombo" placeholder="Descuento del combo"
-                       name="descuentoCombo" step="0.1">
-                <label for="txtDescuentoCombo">Descuento*</label>
-            </div>
-            <select name="categoriaCombo">
-                @foreach (var categoria in Model.entity.Categorias)
-                {
-                    <option value="@categoria.Id">@categoria.Etiqueta</option>
-                }
-            </select>
-
-
-            <label for="formDatosCombo">Ingrese los datos del combo:</label>
-        </div>
-
-        <button type="submit">
-            Agregar
-        </button>
-
+        <button type="submit">Agregar</button>
     </form>
 
-    <div>
-        <a asp-action="PaginaPrincipalCombo">Regresar</a>
-    </div>
+    <a asp-action="PaginaPrincipalCombo" class="button">Regresar</a>
 
     @if (Model is null)
     {
-        @("Say Hi")
+        @("Hola, bienvenido/a.")
     }
     else
     {

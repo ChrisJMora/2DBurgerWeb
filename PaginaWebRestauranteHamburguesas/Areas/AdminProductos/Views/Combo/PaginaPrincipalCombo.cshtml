@@ -8,13 +8,76 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FFB993;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        a.button {
+            margin-top: 10px;
+            padding: 10px;
+            width: 50%;
+            max-width: 200px;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        a.button-primary {
+            background-color: #007bff;
+        }
+
+        a.button-success {
+            background-color: #28a745;
+        }
+
+        a.button-danger {
+            background-color: #dc3545;
+        }
+
+        a.button-warning {
+            background-color: #ffc107;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
 
     <h1>Administración de Combos</h1>
 
     <div>
-        <a asp-action="AgregarCombo">Agregar combo</a>
+        <a asp-action="AgregarCombo" class="button button-primary">Agregar combo</a>
     </div>
 
     <div>
@@ -24,8 +87,8 @@
                 <th>Categoria</th>
                 <th>Estado</th>
                 <th>Descuento</th>
-                <th></th>
-                <th></th>
+                <th>Comida</th>
+                <th>Acciones</th>
             </tr>
             @foreach (var combo in Model.Combos)
             {
@@ -36,50 +99,46 @@
                     <td>@combo.Descuento %</td>
                     <td>
                         <a asp-action="AgregarComidasCombo"
-                        asp-route-idCombo="@combo.ComboId">
+                           asp-route-idCombo="@combo.ComboId" class="button button-warning">
                             Comidas
                         </a>
                     </td>
                     <td>
                         <a asp-action="DetallesCombo"
-                        asp-route-idCombo="@combo.ComboId">
+                           asp-route-idCombo="@combo.ComboId" class="button button-success">
                             Detalles
                         </a>
                         <a asp-action="ModificarCombo"
-                        asp-route-idCombo="@combo.ComboId">
+                           asp-route-idCombo="@combo.ComboId" class="button button-primary">
                             Modificar
                         </a>
 
                         @if (combo.EstadoComboId == 1)
                         {
                             <a asp-action="DeshabilitarCombo"
-                            asp-route-idCombo="@combo.ComboId">
+                               asp-route-idCombo="@combo.ComboId" class="button button-danger">
                                 Deshabilitar
                             </a>
                         }
                         else
                         {
                             <a asp-action="HabilitarCombo"
-                               asp-route-idCombo="@combo.ComboId">
+                               asp-route-idCombo="@combo.ComboId" class="button button-success">
                                 Habilitar
                             </a>
                         }
 
-
                         @if (combo.ComboEliminable)
                         {
                             <a asp-action="EliminarCombo"
-                               asp-route-idCombo="@combo.ComboId">
+                               asp-route-idCombo="@combo.ComboId" class="button button-danger">
                                 Eliminar
                             </a>
                         }
-
                     </td>
                 </tr>
             }
-
         </table>
     </div>
-
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿@model string
 
-@{ string mensaje = (Model == null) ? "Say Hi" : Model.ToString(); }
+@{ string mensaje = (Model == null) ? "Hola, bienvenido/a." : Model.ToString(); }
 
 <!DOCTYPE html>
 <html style="margin:0; padding:0" lang="en">
@@ -8,18 +8,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - 2dBurguer</title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #E8C39E;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        .boton-enlace {
+                margin-top: 20px;
+                text-align: center;
+        }
+
+        .boton-enlace a {
+                margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>Bienvenido, @Sesion.Singleton().UsuarioLogeado</h1>
+    <h1>BIENVENIDO, @Sesion.Singleton().UsuarioLogeado</h1>
 
-    <div>
-        <a asp-route="usuarios">
-            Administración de Usuarios
-        </a>
-        <a asp-area="AdminProductos" asp-controller="Comida" asp-action="PaginaPrincipalComida">
-            Administración de Productos
-        </a>
+    <img src="https://us.123rf.com/450wm/studioaccendo/studioaccendo2307/studioaccendo230732807/208957619-hamburguesa-en-un-plato-ilustraci%C3%B3n-vectorial-en-estilo-de-dibujos-animados.jpg?ver=6"
+         width="500"
+         height="400">
+
+    <h3>Seleccione la opción que desea realizar:</h3>
+
+    <div class="boton-enlace">
+        <div style="margin-bottom: 15px;">
+            <a asp-route="usuarios" class="btn btn-primary">
+                Administración de Usuarios
+            </a>
+        </div>
+
     </div>
 </body>
 </html>
