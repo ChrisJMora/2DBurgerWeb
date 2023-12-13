@@ -47,8 +47,9 @@ namespace PaginaWebRestauranteHamburguesas.Areas.AdminUsuarios.Controllers
                 await modelViewDetalleOrden.Inicializar(idOrden, idCliente);
                 return View("DetallesOrden", modelViewDetalleOrden);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                string m = ex.Message;
                 return RedirectToRoute("ordenes");
             }
         }

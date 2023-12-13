@@ -3,124 +3,55 @@
 
 @model ModelViewMensaje<ModelViewUsuario>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #FFB993;
-            margin: 0;
-        }
 
-        h1 {
-            text-align: center;
-        }
+<div class="d-flex flex-column align-items-center">
 
-        #labelNombreUsuario {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
+    <h1 class="mb-3">Eliminar cuenta</h1>
 
-        form {
-            max-width: 400px;
-            width: 100%;
-            padding: 20px;
-            border: 3px solid #ccc;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
+    <div>
+        <h4 class="mb-3">Usuario: @Model.entity.Nombre</h4>
+    </div>
 
-            form div {
-                margin-bottom: 20px;
+    <form method="post" class="d-flex flex-row">
+
+        <div class="d-flex flex-column justify-content-center rounded-2 w-100 p-3 me-2 bg-info">
+
+            <p class="mb-2 text-wrap text-light fw-bold">
+                Ingrese las credenciales de una cuenta administrador existente:
+            </p>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtNombreUsuarioAdmin" class="form-control" placeholder="Nombre de usuario"
+                        name="nombreUsuarioAdmin">
+                <label for="txtNombreUsuarioAdmin">Nombre de usuario</label>
+            </div>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="password" id="txtPasswordAdmin" class="form-control" placeholder="Contraseña"
+                        name="passwordAdmin">
+                <label for="txtPasswordAdmin">Contraseña</label>
+            </div>
+
+
+            <button type="submit" class="btn btn-light mb-2">
+                Eliminar cuenta
+            </button>
+
+            <a asp-route="usuarios" class="btn btn-outline-light mb-2">
+                Regresar
+            </a>
+
+            @if (Model.mensaje is not null)
+            {
+                <div class="alert alert-danger text-wrap">
+                    <strong>ERROR: </strong>@(Model.mensaje)
+                </div>
             }
 
-        label {
-            display: block;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button, a {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        a {
-            background-color: #6C757D;
-        }
-
-        #mensajeFinal {
-            text-align: center;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Eliminar cuenta</h1>
-
-    <div id="labelNombreUsuario">
-        <label for="labelNombeUsuario">Usuario:</label>
-        <p>@Model.entity.Nombre</p>
-    </div>
-
-    <form method="post">
-        <div id="formCredencialesAdmin">
-            <label for="formCredencialesAdmin">Ingrese las credenciales de una cuenta válida:</label>
-            <div>
-                <input type="text" id="txtNombreUsuarioAdmin" placeholder="Nombre de usuario"
-                       name="nombreUsuarioAdmin">
-            </div>
-            <div>
-                <input type="password" id="txtPasswordAdmin" placeholder="Contraseña"
-                       name="passwordAdmin">
-            </div>
         </div>
-        <button type="submit">Eliminar cuenta</button>
+
     </form>
 
-    <a asp-route="usuarios">Regresar</a>
+</div>
 
-    <div id="mensajeFinal">
-        @if (Model.mensaje is null)
-        {
-            @("Hola, bienvenido/a.")
-        }
-        else
-        {
-            @(Model.mensaje)
-        }
-    </div>
 
-</body>
-</html>

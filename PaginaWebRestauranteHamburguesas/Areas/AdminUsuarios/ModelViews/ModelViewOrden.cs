@@ -7,6 +7,8 @@ namespace PaginaWebRestauranteHamburguesas.Areas.AdminUsuarios.ModelViews
         public int OrdenId { get; set; }
         public int ClienteId { get; set; }
         public string Fecha { get; set; } = "default";
+        public string Hora { get; set; } = "default";
+
 
         public ModelViewOrden() { }
 
@@ -15,6 +17,7 @@ namespace PaginaWebRestauranteHamburguesas.Areas.AdminUsuarios.ModelViews
             OrdenId = orden.Id;
             ClienteId = orden.IdCliente;
             Fecha = orden.Fecha.ToString("dd/MM/yyyy");
+            Hora = orden.Fecha.ToString("HH:mm");
         }
     }
 }

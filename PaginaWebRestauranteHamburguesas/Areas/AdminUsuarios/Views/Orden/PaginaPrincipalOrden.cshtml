@@ -2,49 +2,19 @@
 
 @model ModelViewCliente
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #FFB993;
-        }
+<div class="d-flex flex-column align-items-center mb-2">
+    <h1>Ordenes del cliente</h1>
+    <h4 class="mb-3">Usuario: @Model.Nombre @Model.Apellido</h4>
+</div>
 
-        h1 {
-            text-align: center;
-        }
+<div class="d-flex justify-content-center">
 
-        table {
-            width: 100%;
-        }
-
-        th, td {
-            text-align: center;
-        }
-
-        .acciones {
-            white-space: nowrap;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Ordenes del cliente: @Model.Nombre @Model.Apellido</h1>
-
-    <div>
+    <div class="w-25">
         <table class="table table-hover">
             <tr class="table-success">
                 <th>ID</th>
                 <th>Fecha</th>
+                <th>Hora</th>
                 <th class="acciones">Visualizar</th>
             </tr>
             @foreach (var orden in Model.OrdenesCliente.Ordenes)
@@ -52,11 +22,16 @@
                 <tr class="table-secondary">
                     <td>@orden.OrdenId</td>
                     <td>@orden.Fecha</td>
-                    <td class="acciones">
-                        <a asp-action="DetallesOrden"
+                    <td>@orden.Hora</td>
+                    <td>
+                        <a class="btn btn-success btn-sm d-flex justify-content-center"
+                           asp-action="DetallesOrden"
                            asp-route-idOrden="@orden.OrdenId"
                            asp-route-idCliente="@orden.ClienteId">
-                            Detalles
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill align-self-center" viewBox="0 0 16 16">
+                                <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0" />
+                                <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7" />
+                            </svg>
                         </a>
                     </td>
                 </tr>
@@ -64,5 +39,5 @@
         </table>
     </div>
 
-</body>
-</html>
+</div>
+

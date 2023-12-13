@@ -2,45 +2,14 @@
 
 @model ModelViewClientes
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #FFB993;
-        }
+<div class="d-flex justify-content-center mb-2">
+    <h1>Administración de clientes</h1>
+</div>
 
-        h1 {
-            text-align: center;
-        }
 
-        table {
-            width: 100%;
-        }
+<div class="d-flex justify-content-center">
 
-        th, td {
-            text-align: center;
-        }
-
-        .acciones {
-            white-space: nowrap;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Administración de Clientes</h1>
-
-    <div>
+    <div class="w-75">
         <table class="table table-hover">
             <tr class="table-success">
                 <th>Nombre y Apellido</th>
@@ -51,34 +20,36 @@
             </tr>
             @foreach (var cliente in Model.Clientes)
             {
-                <tr class="table-secondary">
+                <tr>
                     <td>@cliente.Nombre @cliente.Apellido</td>
                     <td>@cliente.FechaNacimiento</td>
                     <td>@cliente.Genero</td>
                     <td>
-                        <ul>
-                            <li>@cliente.Mail</li>
-                            <li>@cliente.Telefono</li>
+                        <ul class="list-group">
+                            <li class="list-group-item">@cliente.Mail</li>
+                            <li class="list-group-item">@cliente.Telefono</li>
                         </ul>
                     </td>
                     @if (cliente.TieneOrdenes)
                     {
                         <td class="acciones">
-                            <a asp-route="ordenes"
+                            <a class="btn btn-success btn-sm h-100"
+                               asp-route="ordenes"
                                asp-route-idCliente="@cliente.ClienteId">
-                                Ordenes
+                               Ordenes
                             </a>
                         </td>
                     }
                     else
                     {
-                        <td>Sin ordenes</td>
+                        <td>
+                            <p class="text-primary fw-bolder m-0">Sin ordenes</p>
+                        </td>
                     }
                 </tr>
             }
-
         </table>
     </div>
 
-</body>
-</html>
+</div>
+

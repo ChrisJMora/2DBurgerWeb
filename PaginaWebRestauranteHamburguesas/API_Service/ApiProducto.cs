@@ -210,6 +210,20 @@ namespace PaginaWebRestauranteHamburguesas.API_Service
             return await response.Content.ReadAsAsync<bool>();
         }
 
+        // GET: api/Producto
+        public async Task<bool>
+            DesactivarComida(int idComida)
+        {
+            HttpResponseMessage response = await client.GetAsync($"""
+                    {_url}/DesactivarComida/{idComida}
+                    """);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(await response.Content.ReadAsStringAsync());
+
+            return await response.Content.ReadAsAsync<bool>();
+        }
+
         // POST: api/Producto
         public async Task<string>
             AgregarComida(string nombre, string descripcion, double precio, int idCategoria)

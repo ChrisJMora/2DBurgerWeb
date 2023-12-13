@@ -2,80 +2,47 @@
 
 @model ModelViewDetalleOrden
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #FFB993;
-        }
+<div class="d-flex flex-column align-items-center">
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            margin: 20px 0;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #5DBB63;
-        }
-
-        td {
-            background-color: #b5b5b5;
-        }
-
-        /* Estilos adicionales para el diseño de las secciones */
-        #encabezadoFactura,
-        #detalleCombos,
-        #detalleComidas {
-            margin-bottom: 20px;
-        }
-
-            #detalleCombos table,
-            #detalleComidas table {
-                margin-top: 10px;
-            }
-
-    </style>
-</head>
-<body>
-
-    <h1>Detalle de la orden: @Model.OrdenId</h1>
-
-    <div id="encabezadoFactura">
-        <p>Cliente: @Model.ClienteOrden.Nombre @Model.ClienteOrden.Apellido</p>
-        <div>
-            <ul>
-                <li>@Model.ClienteOrden.Mail</li>
-                <li>@Model.ClienteOrden.Telefono</li>
-            </ul>
-        </div>
+    <div class="bg-info text-light p-3 w-50 text-center">
+        <h1>Detalle orden</h1>
     </div>
 
-    <hr/>
+    <div class="d-flex flex-column border w-50 p-3 mb-2">
 
-    <div id="detalleCombos">
+        <div>
+            <ul class="list-group list-group-horizontal">
+                <li class="list-group-item list-group-item-info"> <strong>ID: </strong>@Model.OrdenId</li>
+                <li class="list-group-item flex-fill"><strong>Cliente: </strong> @Model.ClienteOrden.Nombre @Model.ClienteOrden.Apellido</li>
+            </ul>
+
+            <p class="fw-bold my-2">Contacto:</p>
+
+            <ul id="contacto" class="list-group">
+                <li class="list-group-item">@Model.ClienteOrden.Mail</li>
+                <li class="list-group-item">@Model.ClienteOrden.Telefono</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="bg-info text-light p-3 w-50 text-center">
+        <h2>Combos adquiridos</h2>
+    </div>
+
+    <div class="d-flex flex-column border w-50 p-3">
+
         @foreach (var comboCarrito in Model.CombosCarrito)
         {
-            <h2>@comboCarrito.Combo.Nombre</h2>
-            <p>Cantidad: @comboCarrito.Cantidad</p>
+            <div class="mb-2">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item list-group-item-info flex-fill"> <strong>Nombre: </strong>@comboCarrito.Combo.Nombre</li>
+                    <li class="list-group-item"> <strong>Cantidad: </strong>@comboCarrito.Cantidad</li>
+                </ul>
+            </div>
 
-            <div id="comidasCombo">
-                <table>
+            <div>
+                <table class="table table-hover">
                     <tr>
                         <th>No</th>
                         <th>Nombre</th>
@@ -83,35 +50,56 @@
                         <th>Cantidad</th>
                         <th>Total</th>
                     </tr>
-                @{int i = 1;}
-                @foreach (var comidaCarrito in comboCarrito.ComidasCarritoCombo)
-                {
-                    <tr>
-                        <td>@i</td>
-                        <td>@comidaCarrito.Comida.Nombre</td>
-                        <td>@comidaCarrito.Comida.Precio</td>
-                        <td>@comidaCarrito.Cantidad</td>
-                        @{double total = comidaCarrito.Comida.Precio * comidaCarrito.Cantidad;}
-                        <td>@total $</td>
-                    </tr>
-                    i++;
-                }
+                    @{
+                        int i = 1;
+                    }
+                    @foreach (var comidaCarrito in comboCarrito.ComidasCarritoCombo)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>@comidaCarrito.Comida.Nombre</td>
+                            <td>@comidaCarrito.Comida.Precio $</td>
+                            <td>@comidaCarrito.Cantidad</td>
+                            @{
+                                double total = comidaCarrito.Comida.Precio * comidaCarrito.Cantidad;
+                            }
+                            <td>@total $</td>
+                        </tr>
+                        i++;
+                    }
                 </table>
+
+                
             </div>
-            <p>Subtotal: @comboCarrito.Subtotal.ToString("F1") $</p>
-            <p>Descuento: @comboCarrito.Combo.Descuento %</p>
-            <p>Total Unitario: @comboCarrito.PrecioTotal.ToString("F1") $</p>
+
             double totalCombo = comboCarrito.PrecioTotal * comboCarrito.Cantidad;
-            <p>Total: @totalCombo.ToString("F1") $</p>
+
+            <div class="w-30 mb-2 align-self-end">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> <strong>Subtotal: </strong>@comboCarrito.Subtotal.ToString("F1")</li>
+                    <li class="list-group-item"> <strong>Descuento: </strong>@comboCarrito.Combo.Descuento %</li>
+                    <li class="list-group-item"> <strong>Total unitario: </strong>@comboCarrito.PrecioTotal.ToString("F1") $</li>
+                    <li class="list-group-item list-group-item-info"> <strong>Total: </strong>@totalCombo.ToString("F1") $</li>
+
+                </ul>
+            </div>
+
+            <hr>
         }
-        <p>Total: @Model.PrecioTotalCombos.ToString("F1") $</p>
-        <label for="detalleCombos">Combos:</label>
+
     </div>
 
-    <hr/>
+    <div class="bg-info text-light p-3 mb-2 w-50 text-center">
+        <p><strong>Total combos: </strong>@Model.PrecioTotalCombos.ToString("F1") $</p>
+    </div>
 
-    <div id="detalleComidas">
-        <table>
+
+    <div class="bg-info text-light p-3 w-50 text-center">
+        <h2>Comidas adquiridas</h2>
+    </div>
+
+    <div class="d-flex flex-column border w-50 p-3">
+        <table class="table table-hover">
             <tr>
                 <th>No</th>
                 <th>Nombre</th>
@@ -119,7 +107,9 @@
                 <th>Cantidad</th>
                 <th>Total</th>
             </tr>
-            @{ int j = 1; }
+            @{
+                int j = 1;
+            }
             @foreach (var comidaCarrito in Model.ComidasCarrito)
             {
                 double totalComida = comidaCarrito.Comida.Precio * comidaCarrito.Cantidad;
@@ -133,13 +123,21 @@
                 j++;
             }
         </table>
-        <p>Total: @Model.PrecioTotalComidas.ToString("F1") $</p>
-        <label for="detalleComidas">Comidas:</label>
+
+        <div class="w-30 mb-2 align-self-end">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-info"> <strong>Total: </strong>@Model.PrecioTotalComidas.ToString("F1") $</li>
+            </ul>
+        </div>
     </div>
 
-    <hr />
+    <div class="bg-info text-light p-3 mb-2 w-50 text-center">
+        <p><strong>Total orden: </strong>@Model.PrecioTotal.ToString("F1") $</p>
+    </div>
 
-    <p>Total: @Model.PrecioTotal.ToString("F1") $</p>
+    <a asp-action="PaginaPrincipalOrden" class="w-50 btn btn-outline-info mb-2">
+        Regresar
+    </a>
 
-</body>
-</html>
+
+</div>

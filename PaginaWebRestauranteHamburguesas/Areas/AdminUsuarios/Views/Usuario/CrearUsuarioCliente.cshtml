@@ -3,159 +3,119 @@
 
 @model ModelViewMensaje<ModelViewGeneros>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaginaWebRestauranteHamburguesas</title>
-    <link href="css/bootstrap.css" rel="stylesheet"/>
-    <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            background-color: beige;
-        }
+<div class="d-flex flex-column align-items-center">
 
-        h1 {
-            border: 1px solid #ddd;
-            padding: 10px;
-            width: 400px;
-            text-align: center;
-        }
+    <h1 class="mb-3">Registrar cuenta</h1>
 
-        form {
-            max-width: 400px;
-            width: 100%;
-            padding: 20px;
-            border: 3px solid #ccc;
-            border-radius: 8px;
-            margin-top: 20px;
-        }
+    <form method="post" class="d-flex flex-row">
 
-            form div {
-                margin-bottom: 20px;
+        <div class="d-flex flex-column justify-content-center rounded-2 w-50 p-3 me-2 bg-info">
+
+            <p class="mb-2 text-wrap text-light fw-bold">
+                Ingrese las credenciales de una cuenta administrador existente:
+            </p>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtNombreUsuarioAdmin" class="form-control" placeholder="Nombre de usuario"
+                       name="nombreUsuarioAdmin">
+                <label for="txtNombreUsuarioAdmin">Nombre de usuario</label>
+            </div>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="password" id="txtPasswordAdmin" class="form-control" placeholder="Contraseña"
+                       name="passwordAdmin">
+                <label for="txtPasswordAdmin">Contraseña</label>
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-column justify-content-center rounded-2 w-50 p-3 me-2 bg-info">
+
+            <p class="mb-2 text-wrap text-light fw-bold">
+                Ingrese los datos del cliente:
+            </p>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtNombreCliente" class="form-control" placeholder="Nombre"
+                       name="nombreCliente">
+                <label for="txtNombreCliente">Nombre</label>
+            </div>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtApellidoCliente" class="form-control" placeholder="Apellido"
+                       name="apellidoCliente">
+                <label for="txtApellidoCliente">Apellido</label>
+            </div>
+
+            <div class="d-flex flex-row">
+
+                <div class="form-floating d-flex flex-column-reverse w-100 mb-2 me-2">
+                    <input type="date" id="txtFnacimiento" class="form-control" placeholder="Fecha de Nacimiento"
+                           name="fNacimientoCliente">
+                    <label for="txtFnacimiento">Fecha de nacimiento</label>
+                </div>
+
+                <div class="form-floating d-flex flex-column-reverse w-100 mb-2">
+                    <select name="generoCliente" class="form-select">
+                        @foreach (var genero in Model.entity.Generos)
+                        {
+                            <option value="@genero.Id">@genero.Etiqueta</option>
+                        }
+                    </select>
+                    <label for="generoCliente">Género</label>
+                </div>
+
+            </div>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtTelefono" class="form-control" placeholder="Teléfono"
+                       name="telefono">
+                <label for="txtTelefono">Teléfono</label>
+            </div>
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="email" id="txtMai" class="form-control" placeholder="Mail"
+                       name="mail">
+                <label for="txtMail">Mail</label>
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-column justify-content-center border rounded-2 w-50 p-3 me-2">
+
+            <p class="mb-2 text-wrap fw-bold">
+                Ingrese las credenciales de la nueva cuenta:
+            </p>
+
+            <div class="form-floating d-flex flex-column-reverse mb-2">
+                <input type="text" id="txtNombreUsuario" class="form-control" placeholder="Nombre de Usuario"
+                       name="nombreUsuario">
+                <label for="txtNombreUsuario">Nombre de usuario</label>
+            </div>
+
+            <div class ="form-floating d-flex flex-column-reverse mb-2">
+                <input type="password" id="txtPassword" class="form-control" placeholder="Contraseña"
+                       name="password">
+                <label for="txtPassword">Contraseña</label>
+            </div>
+
+            <button type="submit" class="btn btn-info mb-2">
+                Crear cuenta
+            </button>
+
+            <a asp-route="usuarios" class="btn btn-outline-info mb-2">
+                Regresar
+            </a>
+
+            @if (Model.mensaje is not null)
+            {
+                <div class="alert alert-danger text-wrap">
+                    <strong>ERROR: </strong>@(Model.mensaje)
+                </div>
             }
 
-        input, select, button, #txtFnacimiento {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            box-sizing: border-box;
-        }
-
-        #formDatosCliente, #formCredencialesAdmin, #formCredencialesUsuarioNuevo {
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: forestgreen;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        a.button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Crear Cuenta de Cliente</h1>
-
-    <form method="post">
-
-        <div id="formCredencialesAdmin">
-            <label for="formCredencialesAdmin">Ingrese las credenciales de una cuenta de cliente válida:</label>
-            <div>
-                <input type="text" id="txtNombreUsuarioAdmin" placeholder="Nombre de usuario"
-                       name="nombreUsuarioAdmin">
-                <label for="txtNombreUsuarioAdmin">Usuario*</label>
-            </div>
-            <div>
-                <input type="password" id="txtPasswordAdmin" placeholder="Contraseña"
-                       name="passwordAdmin">
-                <label for="txtPasswordAdmin">Contraseña*</label>
-            </div>
         </div>
-
-        <div id="formDatosCliente">
-            <label for="formDatosCliente">Ingrese los datos del cliente:</label>
-            <div>
-                <input type="text" id="txtNombreCliente" placeholder="Nombre"
-                       name="nombreCliente">
-                <label for="txtNombreCliente">Nombre*</label>
-            </div>
-            <div>
-                <input type="text" id="txtApellidoCliente" placeholder="Apellido"
-                       name="apellidoCliente">
-                <label for="txtApellidoCliente">Apellido*</label>
-            </div>
-            <div>
-                <input type="date" id="txtFnacimiento" placeholder="Fecha de Nacimiento"
-                       name="fNacimientoCliente">
-                <label for="txtFnacimiento">Fecha de nacimiento*</label>
-            </div>
-            <div>
-                <select name="generoCliente">
-                    @foreach (var genero in Model.entity.Generos)
-                    {
-                        <option value="@genero.Id">@genero.Etiqueta</option>
-                    }
-                </select>
-                <label for="generoCliente">Género</label>
-            </div>
-            <div>
-                <input type="text" id="txtTelefono" placeholder="Teléfono"
-                       name="telefono">
-                <label for="txtTelefono">Teléfono*</label>
-            </div>
-            <div>
-                <input type="email" id="txtMai" placeholder="Mail"
-                       name="mail">
-                <label for="txtMail">Mail*</label>
-            </div>
-        </div>
-
-        <div id="formCredencialesUsuarioNuevo">
-            <label for="formCredencialesUsuarioNuevo">Ingrese las credenciales de la nueva cuenta de cliente:</label>
-            <div>
-                <input type="text" id="txtNombreUsuario" placeholder="Nombre de Usuario"
-                       name="nombreUsuario">
-                <label for="txtNombreUsuario">Usuario*</label>
-            </div>
-            <div>
-                <input type="password" id="txtPassword" placeholder="Contraseña"
-                       name="password">
-                <label for="txtPassword">Contraseña*</label>
-            </div>
-        </div>
-
-        <button type="submit" >Crear cuenta</button>
 
     </form>
 
-    <a asp-route="usuarios" class="button">Regresar</a>
+</div>
 
-    @if (Model is null)
-    {
-        @("Hola, bienvenido/a.")
-    }
-    else
-    {
-        @(Model.mensaje)
-    }
-
-</body>
-</html>

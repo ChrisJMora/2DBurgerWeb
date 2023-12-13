@@ -87,7 +87,6 @@
                 <th>Categoria</th>
                 <th>Estado</th>
                 <th>Descuento</th>
-                <th>Comida</th>
                 <th>Acciones</th>
             </tr>
             @foreach (var combo in Model.Combos)
@@ -98,19 +97,9 @@
                     <td>@combo.Estado</td>
                     <td>@combo.Descuento %</td>
                     <td>
-                        <a asp-action="AgregarComidasCombo"
-                           asp-route-idCombo="@combo.ComboId" class="button button-warning">
-                            Comidas
-                        </a>
-                    </td>
-                    <td>
                         <a asp-action="DetallesCombo"
                            asp-route-idCombo="@combo.ComboId" class="button button-success">
                             Detalles
-                        </a>
-                        <a asp-action="ModificarCombo"
-                           asp-route-idCombo="@combo.ComboId" class="button button-primary">
-                            Modificar
                         </a>
 
                         @if (combo.EstadoComboId == 1)

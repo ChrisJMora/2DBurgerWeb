@@ -19,6 +19,7 @@ namespace PaginaWebRestauranteHamburguesas.Areas.AdminProductos.ModelViews
         public string Categoria { get; set; } = "default";
         public string Estado { get; set; } = "default";
         public bool ComidaEliminable { get; set; }
+        public bool DesactivarComida { get; set; }
         public ModelViewCategoriasComida CategoriasComida { get; set; } = new ModelViewCategoriasComida();
 
         public ModelViewComida() { }
@@ -47,6 +48,7 @@ namespace PaginaWebRestauranteHamburguesas.Areas.AdminProductos.ModelViews
             Categoria = categoria.Etiqueta;
             Estado = estado.Etiqueta;
             ComidaEliminable = await _apiProducto.ComidaEliminable(ComidaId);
+            DesactivarComida = await _apiProducto.DesactivarComida(ComidaId);
         }
     }
 }

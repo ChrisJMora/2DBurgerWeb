@@ -2,43 +2,7 @@
 
 @{ string mensaje = (Model == null) ? "Hola, bienvenido/a." : Model.ToString(); }
 
-<!DOCTYPE html>
-<html style="margin:0; padding:0" lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - 2dBurguer</title>
-    <link href="css/bootstrap.css" rel="stylesheet" />
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background-color: #E8C39E;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        h3 {
-            text-align: center;
-        }
-
-        .boton-enlace {
-                margin-top: 20px;
-                text-align: center;
-        }
-
-        .boton-enlace a {
-                margin-right: 10px;
-        }
-    </style>
-</head>
-<body>
+<div class="d-flex flex-column w-100 align-items-center">
 
     <h1>BIENVENIDO, @Sesion.Singleton().UsuarioLogeado</h1>
 
@@ -48,14 +12,17 @@
 
     <h3>Seleccione la opción que desea realizar:</h3>
 
-    <div class="boton-enlace">
+    <div class="d-flex flex-row">
+
         <div style="margin-bottom: 15px;">
             <a asp-route="usuarios" class="btn btn-primary">
-                Administración de Usuarios
+                Administración de usuarios
             </a>
         </div>
 
     </div>
-</body>
-</html>
+
+</div>
+
+
  

@@ -99,13 +99,8 @@
                                 class="button button-details">
                             Detalles
                         </a>
-                        <a asp-action="ModificarComida"
-                                asp-route-idComida="@comida.ComidaId"
-                                class="button button-edit">
-                            Modificar
-                        </a>
 
-                        @if (comida.EstadoId == 1)
+                        @if (comida.EstadoId == 1 && comida.DesactivarComida)
                         {
                             <a asp-action="DeshabilitarComida"
                                     asp-route-idComida="@comida.ComidaId"
@@ -122,14 +117,6 @@
                             </a>
                         }
 
-                        @if (comida.ComidaEliminable)
-                        {
-                            <a asp-action="EliminarComida"
-                                    asp-route-idComida="@comida.ComidaId"
-                                    class="button button-delete">
-                                Eliminar
-                            </a>
-                        }
                     </td>
                 </tr>
             }
